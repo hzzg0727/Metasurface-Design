@@ -5,6 +5,14 @@
 Fundamental metasurface design workflows realized with Python (notebook) based on Lumerical FDTD API. 
 Code for paper [Fundamentals to frontiers of metasurface for flat optics: a multifaceted tutorial]().  <!-- NOTE -->
 
+**Important notes**
+
+*The paper is still not published.*
+
+*Until now, only the notebook [ComputerGeneratedHologram.ipynb](/notebook/ComputerGeneratedHologram.ipynb) is completed.*
+
+*Other notebooks will be completed and released before the publication of our paper.*
+
 A major advantage of the design demos we provide is that 
 the entire metasurface design and analysis process can be carried out within the Python environment, 
 offering a highly efficient, flexible, convenient, and automated workflow. 
