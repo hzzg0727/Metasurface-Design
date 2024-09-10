@@ -59,6 +59,17 @@ def setResources(fdtd, parallel_job_number, processes, threads, capacity, job_la
         fdtd.deleteresource("FDTD", 1)
 
 
+def getPolarizedField(e_x, e_y, polarization_angle=0):
+    """ 
+    Return the filed with specified polarization angle
+    @param e_x: the x component of field, a ND(spacial dimension + wavelength dimension, ...) numpy array
+    @param e_y: the y component of field, a ND numpy array
+    @param polarization angle: polarization angle [rad]
+    @return: the filed with specified polarization angle, a ND numpy array
+    """
+    return e_x * np.cos(polarization_angle) + e_y * np.sin(polarization_angle)
+
+
 def getMatrixCenter(mat):
     """ 
     Return the center value of the matrix
@@ -88,3 +99,57 @@ def norm(matrix):
     max = np.max(matrix)
     return (matrix - min) / (max - min)
 
+
+def distanceCycle(x, y, cycle_min, cycle_max, start_end=0):
+    """ 
+    Return the distance of two numbers with cycle rule
+    @param x: number 1. `x`\in [`cycle_min`, `cycle_max`]
+    @param y: number 2. `y`\in [`cycle_min`, `cycle_max`]
+    @param cycle_min: min value in the cycle range
+    @param cycle_max: max value in the cycle range
+    @param start_end: the distance between `cycle_min` and `cycle_max`. Default: 0
+    @return: distance between the numbers
+    """
+    assert cycle_min <= x <= cycle_max and cycle_min <= y <= cycle_max, "x, y must be in the cycle range."
+    x, y = min(x, y), max(x, y)
+    return min(y - x, x + cycle_max - cycle_min - y + start_end)
+
+
+def phaseDis(phase1, phase2):
+    """ 
+    Return the absolute difference between two phases valued in (-\pi, \pi]
+    @param phase1: phase 1 [rad]
+    @param phase2: phase 2 [rad]
+    @return: distance between the phases
+    @note: make sure the value of phase is in (-\pi, \pi] in advance
+    """
+    return distanceCycle(phase1, phase2, -np.pi, np.pi)
+
+
+def phaseNorm(phase):
+    """ 
+    Normalize phase number / numpy array (any dimension) to [-\pi, \pi).
+    @param phase: number / Nd numpy array of phase
+    @return: normalized phase number / Nd numpy array 
+    """
+    return np.angle(np.exp(1j * phase))
+
+
+def integrate(mat, x_vec, y_vec, radius=np.inf):
+    """ 
+    Return the integrate of `mat` over `x_vec` and `y_vec`
+    @param mat: 2D numpy array
+    @param x_vec: 1D numpy array
+    @param y_vec: 1D numpy array
+    @param radius: only the region in the circle (centered at origin) withe the radius of `radius` will be integrated (default: np.inf)
+    @return: the integrate
+    """
+    assert mat.shape[0] == len(x_vec) and mat.shape[1] == len(y_vec), "The dimension of the matrix and vectors don't match."
+
+    if radius == np.inf:
+        return np.sum([mat[i, j] * (x_vec[i + 1] - x_vec[i]) * (y_vec[j + 1] - y_vec[j]) \
+            for i in range(len(x_vec) - 1) for j in range(len(y_vec) - 1)])
+    else:
+        return np.sum([mat[i, j] * (x_vec[i + 1] - x_vec[i]) * (y_vec[j + 1] - y_vec[j]) \
+            for i in range(len(x_vec) - 1) for j in range(len(y_vec) - 1) if x_vec[i] ** 2 + y_vec[j] ** 2 <= radius ** 2])
+    
