@@ -29,12 +29,14 @@ each accompanied by a corresponding notebook file located in the [notebook](note
 In this demo, we realize the propagation phase metasurface design workflow, 
 from building the meta-atom library to the arrangement of meta-atoms on the substrate. 
 We note that resonant phase metasurfaces share the similar workflow with propagation phase metasurfaces. 
+The GDS file export method for propagation phase metasurfaces is also provided. 
 
 ### Geometric phase metasurface design
 
 In this demo, we realize the geometric phase metasurface design workflow, 
 from finding the meta-atom with the highest transmittance and polarization conversion efficiency 
 to the arrangement of meta-atoms on the substrate. 
+The GDS file export method for geometric phase metasurfaces is also provided. 
 
 ### Metalens design and analysis
 
@@ -68,6 +70,10 @@ the phase distribution of the hologram solved by the GS algorithm, etc.
 ### [fsp](fsp/)
 
 The `fsp` directory contains the simulation files of Lumerical FDTD. 
+
+### [layout](layout/)
+
+The `layout` directory contains the GDS (Graphic Data System) files of metasurfaces. 
 
 ### [material](material/)
 
