@@ -25,6 +25,22 @@ def nk2permittivity(n, k):
     return (n + 1j * k) ** 2
 
 
+def addMaterialNK(fdtd, name, n, k, color=np.array([255 / 255, 69 / 255, 0 / 255, 1])):
+    """ 
+    Add material to FDTD with specified n and k
+    @param fdtd: active FDTD object
+    @param name: material name (string)
+    @param n: refractive index (number)
+    @param k: imaginary refractive index (number)
+    @param color: display color for the material. Numpy array [R, G, B, alpha]. Default: np.array([255 / 255, 69 / 255, 0 / 255, 1])
+    """
+    temp = fdtd.addmaterial("(n,k) Material")
+    fdtd.setmaterial(temp, "name", name)
+    fdtd.setmaterial(name, "Refractive Index", n)
+    fdtd.setmaterial(name, "Imaginary Refractive Index", k)
+    fdtd.setmaterial(name, "color", color)
+
+    
 def setResources(fdtd, parallel_job_number, processes, threads, capacity, job_launching_preset, clear=True, prefix=""):
     """ 
     Set resources in FDTD
@@ -68,6 +84,40 @@ def getPolarizedField(e_x, e_y, polarization_angle=0):
     @return: the filed with specified polarization angle, a ND numpy array
     """
     return e_x * np.cos(polarization_angle) + e_y * np.sin(polarization_angle)
+
+
+def extendField(x_vec, y_vec, e_mat, h_mat, period_x, period_y, extend_x, extend_y):
+    """ 
+    Return the extended filed (E and H matrix) for the period field
+    @param x_vec: x vector for the period field [m]
+    @param y_vec: y vector for the period field [m]
+    @param e_mat: E matrix for the period field
+    @param h_mat: H matrix for the period field
+    @param period_x: the period along the x direction of the field [m]
+    @param period_y: the period along the y direction of the field [m]
+    @param extend_x: the extended number along the x direction
+    @param extend_y: the extended number along the y direction
+    @return: extended x_vec, y_vec, e_mat, and h_mat
+    """
+    len_x = len(x_vec)
+    len_y = len(y_vec)
+    x_extend_vec = np.zeros(len_x * extend_x, dtype=np.float_)
+    y_extend_vec = np.zeros(len_y * extend_y, dtype=np.float_)
+    e_extend_mat = np.zeros((len_x * extend_x, len_y * extend_y, *e_mat.shape[2:]), dtype=np.complex_)
+    h_extend_mat = np.zeros((len_x * extend_x, len_y * extend_y, *h_mat.shape[2:]), dtype=np.complex_)
+    for i in range(extend_x):
+        x_extend_vec[i * len_x:(i + 1) * len_x] = x_vec + period_x * i
+    center_x = (x_extend_vec[0] + x_extend_vec[-1]) / 2
+    x_extend_vec = x_extend_vec - center_x
+    for j in range(extend_y):
+        y_extend_vec[j * len_y:(j + 1) * len_y] = y_vec + period_y * j
+    center_y = (y_extend_vec[0] + y_extend_vec[-1]) / 2
+    y_extend_vec = y_extend_vec - center_y
+    for i in range(extend_x):
+        for j in range(extend_y):
+            e_extend_mat[i * len_x:(i + 1) * len_x, j * len_y:(j + 1) * len_y] = e_mat
+            h_extend_mat[i * len_x:(i + 1) * len_x, j * len_y:(j + 1) * len_y] = h_mat
+    return x_extend_vec, y_extend_vec, e_extend_mat, h_extend_mat
 
 
 def getMatrixCenter(mat):

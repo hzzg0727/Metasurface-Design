@@ -3,7 +3,7 @@
 ## Introduction
 
 Fundamental metasurface design workflows realized with Python (notebook) based on Lumerical FDTD API. 
-Code for paper [Fundamentals to frontiers of metasurface for flat optics: a multifaceted tutorial]().  <!-- NOTE -->
+Code for paper [Fundamentals to emerging concepts and applications of metasurface for flat optics: a multifaceted tutorial]().  <!-- NOTE -->
 Welcome for your star!
 
 **Important notes** <!-- NOTE -->
@@ -38,6 +38,12 @@ from finding the meta-atom with the highest transmittance and polarization conve
 to the arrangement of meta-atoms on the substrate. 
 The GDS file export method for geometric phase metasurfaces is also provided. 
 
+### Metagrating design and analysis
+
+In this demo, we design a polarization-insensitive metagrating based on propagation phase modulation mechanism. 
+The meta-atom library is built using the propagation phase metasurface design workflow above. 
+The performance of the metagrating is also analyzed. 
+
 ### Metalens design and analysis
 
 In this demo, we design a polarization-insensitive metalens based on propagation phase modulation mechanism. 
@@ -49,6 +55,18 @@ The performance of the metalens is also analyzed.
 In this demo, we design a polarization-insensitive metasurface hologram based on propagation phase modulation mechanism. 
 The meta-atom library is built using the propagation phase metasurface design workflow above. 
 The performance of the metasurface hologram is also analyzed. 
+
+### Design and analysis of the metasurface for vortex generation
+
+In this demo, we design a polarization-insensitive metasurface for vortex generation 
+based on propagation phase modulation mechanism. 
+The meta-atom library is built using the propagation phase metasurface design workflow above. 
+The performance of the metasurface is also analyzed. 
+
+### Quasi-symmetry-protected BIC metasurface design
+
+In this demo, we design a quasi-symmetry-protected BIC metasurface using two tilted ellipse meta-atoms. 
+The Fano fitting for solving the quality factor is also demonstrated. 
 
 ### Computer generated hologram 
 
@@ -97,9 +115,12 @@ The files in this directory are as follows.
 
 1. [GeometricPhaseMetasurface.ipynb](notebook/GeometricPhaseMetasurface.ipynb): Workflow for geometric phase metasurface design.
 2. [PropagationPhaseMetasurface.ipynb](notebook/PropagationPhaseMetasurface.ipynb): Workflow for propagation phase metasurface design.
-3. [MetalensDesign.ipynb](notebook/MetalensDesign.ipynb): Workflow for the design and analysis of the metalens.
-4. [MetasurfaceHologramDesign.ipynb](notebook/MetasurfaceHologramDesign.ipynb): Workflow for the design and analysis of the metasurface hologram.
-5. [ComputerGeneratedHologram.ipynb](notebook/ComputerGeneratedHologram.ipynb): Realization of computer generated hologram algorithms. 
+3. [Metagrating.ipynb](notebook/MetagratingDesign.ipynb): Workflow for the design and analysis of the metagrating.
+4. [MetalensDesign.ipynb](notebook/MetalensDesign.ipynb): Workflow for the design and analysis of the metalens.
+5. [MetasurfaceHologramDesign.ipynb](notebook/MetasurfaceHologramDesign.ipynb): Workflow for the design and analysis of the metasurface hologram.
+6. [MetasurfaceVortexDesign.ipynb](notebook/MetasurfaceVortexDesign.ipynb): Workflow for the design and analysis of the metasurface for vortex generation.
+7. [SymmetryProtectedBICMetasurface.ipynb](notebook/SymmetryProtectedBICMetasurface.ipynb): Workflow for the design and analysis of the quasi-symmetry-protected metasurface.
+8. [ComputerGeneratedHologram.ipynb](notebook/ComputerGeneratedHologram.ipynb): Realization of computer generated hologram algorithms. 
 
 ## How to use it?
 
@@ -108,7 +129,9 @@ To get started, you need to have both Python and Jupyter Notebook installed on y
 
 **Important notes**
 
-In our tests, in order to use the python API of Lumerical FDTD, 
+In our tests, 
+for some old versions of Lumerical FDTD, 
+in order to use the python API, 
 the python version of the environment should not be higher than 3.9.0. 
 
 We use the following codes to import `lumapi` of Lumerical FDTD. 
