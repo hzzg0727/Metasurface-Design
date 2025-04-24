@@ -4,6 +4,7 @@
 
 Fundamental metasurface design workflows realized with Python (notebook) based on Lumerical FDTD API. 
 Code for paper [Fundamentals to emerging concepts and applications of metasurface for flat optics: a multifaceted tutorial]().  <!-- NOTE -->
+This repository will be continuously maintained and updated. 
 Welcome for your star!
 
 **Important notes** <!-- NOTE -->
