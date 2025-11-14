@@ -155,7 +155,7 @@ These resources will provide you with more detailed instructions and guidance on
 If you use any of these codes in your research or work, please cite our paper:
 
 > Gao Y., Ma Y. Fundamentals to frontiers of metasurface for flat optics: a multifaceted tutorial. 
-> [[bibtex](article.bib)] <!-- NOTE -->
+> [[bibtex](article.bib)]
 
 ## Author information
 
